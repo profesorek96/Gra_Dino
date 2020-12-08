@@ -4,7 +4,7 @@ import pgzrun  # importujemy bibliotekę
 # tworzymy obiekt klasy Actor, gracza
 # pierwszy argument - nazwa grafiki
 # drugi argument - krotka, pozycja
-gracz = Actor('p3_stand', (0, 0))
+gracz = Actor('p3_stand', (100, 484))
 
 
 def draw():  # funkcja rysująca
