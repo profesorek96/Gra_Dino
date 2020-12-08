@@ -5,8 +5,10 @@ def draw():  # funkcja rysująca
     screen.clear()  # metoda czyszcząca ekran
     screen.fill('#cff4f7')
     # metoda wypełniająca kolorem
-    screen.blit('grass', (0, 0))
-    # rysuje grafikę o nazwie grass w punkcie 0,0
+    for i in range((screen.width // 70) + 1):
+        screen.blit('grass', (i * 70, screen.height - 70))
+        # rysuje grafikę o nazwie
+        # grass w punkcie 0,0
 
 
 def update():  # funkcja wykonuje się co klatkę
