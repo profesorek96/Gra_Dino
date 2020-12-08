@@ -19,7 +19,10 @@ def draw():  # funkcja rysująca
 
 
 def update():  # funkcja wykonuje się co klatkę
-    pass  # pusta funkcja update
+    if keyboard.SPACE:  # sprawdza czy został
+        # wciśnięty klawisz spacji
+        # jeśli tak
+        print('spacja')  # wypisuje napis
 
 
 pgzrun.go()  # Linia ta jest konieczna
