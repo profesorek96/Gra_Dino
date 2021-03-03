@@ -40,6 +40,10 @@ szybkosc_ruchu_chmur = 2
 # z jaką szybkością mają się przesuwać
 # chmury na ekranie
 
+czas_gry = 0
+# zmienna globalna przechowywująca
+# czas gry
+
 
 def draw():  # funkcja rysująca
     global stan_gry  # ustawienie zmiennej stan_gry
@@ -54,6 +58,16 @@ def draw():  # funkcja rysująca
     for chmura in chmury:  # pętla przechodząca po liście
         chmura.draw()  # dla każdego obiektu wywołujemy
         # metodę rysującą dany element listy na ekranie
+    screen.draw.text(
+        wyrownaj_napis_czas(czas_gry),
+        midright=(screen.width - 50, 50),
+        fontname="roboto_mono_bold",
+        color="orange",
+        fontsize=45
+    )
+    # wyświetlanie licznika czasu
+    # w prawym górnym rogu ekranu
+
     gracz.draw()  # rysujemy obiekt gracza
     if stan_gry == 0:
         # jeśli gra się nie rozpoczęła
@@ -99,6 +113,28 @@ def update():  # funkcja wykonuje się co klatkę
     # uruchom funkcję kontrolującą skok oraz opadanie
     ruch_chmur()
     # uruchom funkcję odpowiedzialną za ruch chmur
+
+
+def odmierzaj_czas():  # funkcja ta wykonuje się
+    # co 0.1sekudny,tymsamymzwiększaglobalnązmienną
+    # przechowywującą liczbę sekund o 1
+    # jeśli gra jeszcze się nie rozpoczęła, funkcja ta
+    # ustawia globalna zmienna czas_gry na 0
+    global czas_gry
+    global stan_gry
+    if stan_gry == 0:
+        czas_gry = 0
+    elif stan_gry == 1:
+        czas_gry += 1
+
+
+def wyrownaj_napis_czas(czas):
+    # funkcja ta przyjmuje liczbę
+    # funkcja ta zamienia liczbę na napis
+    # o stałej szerokości wynoszącej zawsze 6 znaków
+    napis = "0" * (5 - len(str(czas)))
+    napis += str(czas)
+    return napis
 
 
 def ruch_chmur():  # funkcja odpowiedzialna za poruszanie
@@ -241,5 +277,7 @@ def animacja():  # funkcja odpowiedzialna za
     # równa zero oraz mniejsza od 11
 
 
+clock.schedule_interval(odmierzaj_czas, 0.1)
+# wywołujemy funkcję odmierzaj_czas() co 0.1 sekundy
 pgzrun.go()  # Linia ta jest konieczna
 # aby okno nie zostało zamknięte
