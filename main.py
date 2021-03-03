@@ -1,17 +1,16 @@
 import pgzrun  # importujemy bibliotekę
-
 # Pygame Zero
 
-# tworzymy obiekt klasy Actor, gracza
-# pierwszy argument - nazwa grafiki
-# drugi argument - krotka, pozycja
+# tworzymy obiekt klasy Actor gracza
+# pierwszy argument – nazwa grafiki
+# drugi argument – krotka, pozycja
 gracz = Actor('p3_stand', (100, 484))
 
 stan_gry = 0  # zmienna reprezentująca
 # stan gry
-# 0 - gra nie rozpoczęta
-# 1 - rozpoczyna rozgrywkę
-# 2 - ekran końcowy
+# 0 – gra nie rozpoczęta
+# 1 – rozpoczyna rozgrywkę
+# 2 – ekran końcowy
 
 klatka = 0  # zmienna globalna
 # reprezentująca, która klatka
@@ -22,11 +21,10 @@ skok = 0  # zmienna globalna
 # przemieszczania się gracza
 
 blokada_skoku = 0  # zmienna globalna
+# będąca flagą
+# 0 – skok jest możliwy
+# 1 – skok nie jest możliwy
 
-
-# będąca flaga
-# 0 - skok jest możliwy
-# 1 - skok nie jest możliwy
 
 def draw():  # funkcja rysująca
     global stan_gry  # ustawienie zmiennej stan_gry
@@ -47,9 +45,8 @@ def draw():  # funkcja rysująca
             color="orange",
             fontsize=60
         )
-        # wyświetla napis "Wciśnij spację" 
-        # na środku ekranu
-
+    # wyświetla napis "Wciśnij spację"
+    # na środku ekranu
 
 def update():  # funkcja wykonuje się co klatkę
     global stan_gry
@@ -58,7 +55,7 @@ def update():  # funkcja wykonuje się co klatkę
     # ustawienie zmiennej skok jako globalnej
     global blokada_skoku
     # ustawienie zmiennej blokada_skoku jako globalnej
-    if keyboard.SPACE:  # sprawdza czy został
+    if keyboard.SPACE:  # sprawdza, czy został
         # wciśnięty klawisz spacji
         # jeśli tak
         if stan_gry == 0:
@@ -74,8 +71,11 @@ def update():  # funkcja wykonuje się co klatkę
             # ustaw szybkość skoku na 18 pikseli
             blokada_skoku = 1
             # zablokuj możliwość ponownego skoku
+            sounds.jingles_jump.play()
+            # włączenie odtwarzania pliku
+            # dźwiękowego jingles_jump
     animacja()
-    # uruchom funkcje odpowiedzialną za animacje postaci
+    # uruchom funkcję odpowiedzialną za animacje postaci
     skok_opadanie()
     # uruchom funkcję kontrolującą skok oraz opadanie
 
@@ -94,7 +94,7 @@ def skok_opadanie():  # funkcja odpowiedzialna za
     global skok
     # ustawienie zmiennej skok jako globalnej
     global klatka  # zmienna globalna
-    # decydujaca, która klatka
+    # decydująca, która klatka
     # animacji ma zostać aktualnie wyświetlona
     if skok != 0:  # jeśli skok aktywny
         klatka = 0  # zablokowanie animacji
@@ -108,16 +108,16 @@ def skok_opadanie():  # funkcja odpowiedzialna za
         # wartość zero gwarantuje, że nasz bohater
         # będzie stał w miejscu tuż nad podłożem
     if gracz.y <= 250:  # jeśli gracz znajduje się
-        # wyżej niż wartość 250 na osi y 
+        # wyżej niż wartość 250 na osi y
         # zacznij opadanie
-        skok *= (-1)  # zmiana kierunku 
+        skok *= (-1)  # zmiana kierunku
         # poruszania się sprite
 
 
 def animacja():  # funkcja odpowiedzialna za
     # animacje postaci gracza
     global klatka  # zmienna globalna
-    # decydujaca, która klatka
+    # decydująca, która klatka
     # animacji ma zostać aktualnie wyświetlona
     if stan_gry == 1:  # jeśli gra się rozpoczęła
 
@@ -129,7 +129,7 @@ def animacja():  # funkcja odpowiedzialna za
 
         # jeśli klatka jest równa 1
         # zmień kostium gracza na ten
-        # z pliku p3_walk02         
+        # z pliku p3_walk02
         elif klatka == 1:
             gracz.image = 'p3_walk02'
 
@@ -187,11 +187,11 @@ def animacja():  # funkcja odpowiedzialna za
         elif klatka == 10:
             gracz.image = 'p3_walk11'
 
-    klatka += 1  # zwiększ wartość 
+    klatka += 1  # zwiększ wartość
     # zmiennej klatka o 1
     klatka %= 11  # obliczamy resztę z dzielenia
-    # zmiennej klatka przez 11
-    # wynik takiej operacji będzie liczba większa bądź
+    # #zmiennej klatka przez 11
+    # wynik takiej operacji to liczba większa bądź
     # równa zero oraz mniejsza od 11
 
 
