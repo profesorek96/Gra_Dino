@@ -1,6 +1,16 @@
 import pgzrun  # importujemy bibliotekę
 # Pygame Zero
 
+# tworzymy pustą listę
+# następnie dodajemy do niej cztery
+# obiekty klasy Actor, każdy z tych
+# obiektów różni się grafiką oraz pozycją
+# obiektu na ekranie
+chmury = [Actor('cloud1', (200, 200)),
+          Actor('cloud2', (400, 300)),
+          Actor('cloud3', (600, 200)),
+          Actor('cloud1', (800, 300))]
+
 # tworzymy obiekt klasy Actor gracza
 # pierwszy argument – nazwa grafiki
 # drugi argument – krotka, pozycja
@@ -25,6 +35,11 @@ blokada_skoku = 0  # zmienna globalna
 # 0 – skok jest możliwy
 # 1 – skok nie jest możliwy
 
+szybkosc_ruchu_chmur = 2
+# zmienna globalna określająca
+# z jaką szybkością mają się przesuwać
+# chmury na ekranie
+
 
 def draw():  # funkcja rysująca
     global stan_gry  # ustawienie zmiennej stan_gry
@@ -36,6 +51,9 @@ def draw():  # funkcja rysująca
         screen.blit('grass', (i * 70, screen.height - 70))
         # rysuje grafikę o nazwie
         # grass w punkcie 0,0
+    for chmura in chmury:  # pętla przechodząca po liście
+        chmura.draw()  # dla każdego obiektu wywołujemy
+        # metodę rysującą dany element listy na ekranie
     gracz.draw()  # rysujemy obiekt gracza
     if stan_gry == 0:
         # jeśli gra się nie rozpoczęła
@@ -45,8 +63,9 @@ def draw():  # funkcja rysująca
             color="orange",
             fontsize=60
         )
-    # wyświetla napis "Wciśnij spację"
-    # na środku ekranu
+        # wyświetla napis "Wciśnij spację"
+        # na środku ekranu
+
 
 def update():  # funkcja wykonuje się co klatkę
     global stan_gry
@@ -78,6 +97,33 @@ def update():  # funkcja wykonuje się co klatkę
     # uruchom funkcję odpowiedzialną za animacje postaci
     skok_opadanie()
     # uruchom funkcję kontrolującą skok oraz opadanie
+    ruch_chmur()
+    # uruchom funkcję odpowiedzialną za ruch chmur
+
+
+def ruch_chmur():  # funkcja odpowiedzialna za poruszanie
+    # się chmur na ekranie oraz ich zawijanie
+    # tak aby uzyskać efekt nieskończoności
+    global szybkosc_ruchu_chmur
+    # ustawienie zmiennej szybkosc_ruchu_chmur
+    # jako globalnej
+    global stan_gry
+    # ustawienie zmiennej stan_gry jako globalnej
+
+    # jeśli gra rozpoczęła się, to
+    if stan_gry == 1:
+        # przejdź listę obiektów chmur
+        for chmura in chmury:
+            # zmień każdemu z obiektów w liście chmury
+            # wartość składowej x o wartość zmiennej
+            # szybkosc_ruchu_chmur
+            chmura.x -= szybkosc_ruchu_chmur
+            # jeśli którykolwiek z obiektów
+            # dotyka lewej krawędzi okna
+            if chmura.x + 64 < 0:
+                # to ustaw pozycję tej chmury
+                # tak aby była z prawej strony
+                chmura.x = screen.width + 32
 
 
 def zwolnienie_blokady():  # funkcja odpowiedzialna
