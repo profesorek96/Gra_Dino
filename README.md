@@ -88,9 +88,9 @@ Film prezentujący gameplay dostępny jest pod tym [linkiem](https://www.youtube
 * __Pygame Zero__
 
 ## Assety
-Niniejszy projekt korzysta z następujących paczek assetów:
-https://kenney.nl/assets/platformer-art-deluxe
-https://kenney.nl/assets/music-jingles
+Projekt korzysta z następujących paczek assetów:
+* https://kenney.nl/assets/platformer-art-deluxe
+* https://kenney.nl/assets/music-jingles
 
 ## Status
 Niniejszy projekt został: __ukończony__
